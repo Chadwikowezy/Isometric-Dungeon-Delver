@@ -1,7 +1,45 @@
-﻿public enum Team
+﻿//A list of all enums
+
+public enum UnitType
 {
-    One,
-    Two,
-    Npc,
+    Player,
     Enemy
+}
+
+public enum UnitClass
+{
+    Warrior,
+    Rogue,
+    Mage,
+    Cleric,
+    Archer
+}
+
+public enum MonsterType
+{
+    Zombie,
+    Skeleton,
+    Spider,
+    Ghost
+}
+
+public enum MoveState
+{
+    Idle,
+    Standing,
+    Running,
+    KnockedBack,
+    Stuned
+}
+
+public enum ItemType
+{
+    Helmet,
+    Pauldrons,
+    Bracers,
+    ChestPiece,
+    Leggings,
+    Boots,
+    Weapon,
+    Consumable
 }
