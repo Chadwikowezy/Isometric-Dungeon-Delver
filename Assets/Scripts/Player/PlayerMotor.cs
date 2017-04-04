@@ -19,6 +19,7 @@ public class PlayerMotor : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+        RotatePlayer();
     }
 
     void MovePlayer()
@@ -30,7 +31,16 @@ public class PlayerMotor : MonoBehaviour
         {
             _rb.AddForce(_inputManager.MoveInput * _stats.Speed);
         }
+    }
+    void RotatePlayer()
+    {
+        Vector3 lookDirection = _inputManager.RotationInput - transform.position;
+        Quaternion lookRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
 
-        print(_rb.velocity.magnitude);
+        lookDirection.y = transform.position.y;
+        lookRotation.x = 0;
+        lookRotation.z = 0;
+
+        transform.rotation = lookRotation;
     }
 }
