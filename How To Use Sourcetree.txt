@@ -1,0 +1,8 @@
+ How To Use Sourcetree
+=======================
+
+- First - click fetch to get all the changes from all other branches
+- Second - click pull to pull all of the fetched changes from the other branches
+- Third - check for and fix any merge conflicts
+- Fourth - commit all changes to your local branch
+- Fifth - click push and push the current local branch to the corresponding remote branch
