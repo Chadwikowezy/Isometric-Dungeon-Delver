@@ -6,7 +6,7 @@ public class Item : MonoBehaviour
 {
     public ItemType itemType;
 
-    public string name,
+    public string itemName,
                   description;
 
     public int health,

@@ -3,7 +3,8 @@
 public enum UnitType
 {
     Player,
-    Enemy
+    Enemy,
+    NPC
 }
 
 public enum UnitClass

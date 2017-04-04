@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-
 
 public class Enemy : BaseUnit
 {
@@ -34,8 +32,6 @@ public class Enemy : BaseUnit
 
         FindAllWaypoints();
         StartCoroutine(ChangeMoveState());
-
-        print(_destination);
     }
     private void Update()
     {

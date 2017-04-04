@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
     private BaseUnit _baseUnit;
 
     private Vector3 _moveInput;
+    private Vector3 _rotationInput;
 
     private void Start()
     {
@@ -15,6 +16,7 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         _moveInput = DetectMoveInput();
+        _rotationInput = DetectRotationInput();
     }
 
     public Vector3 DetectMoveInput()
@@ -31,10 +33,32 @@ public class InputManager : MonoBehaviour
 
         return input;
     }
+    public Vector3 DetectRotationInput()
+    {
+        Vector3 input;
+
+        RaycastHit hitInfo;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        Physics.Raycast(ray, out hitInfo, 20);
+
+        if (_baseUnit.moveState != MoveState.KnockedBack && _baseUnit.moveState != MoveState.Stuned)
+            input = hitInfo.point;
+        else
+            input = Vector3.zero;
+
+        print(input);
+
+        return input;
+    }
 
     //Properties
     public Vector3 MoveInput
     {
         get { return _moveInput; }
+    }
+    public Vector3 RotationInput
+    {
+        get { return _rotationInput; }
     }
 }
