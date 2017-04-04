@@ -15,7 +15,8 @@ public class Enemy : BaseUnit
     public float aggroRadius,
                  waypointDetectionRadius;
 
-    private GameObject currentWaypoint;
+    private GameObject _currentWaypoint,
+                       _player;
 
     private Vector3 _currentPosition,
                     _destination;
@@ -26,6 +27,9 @@ public class Enemy : BaseUnit
 
     private void Start()
     {
+        if (FindObjectOfType<Player>())
+            _player = FindObjectOfType<Player>().gameObject;
+
         _rb = GetComponent<Rigidbody>();
 
         FindAllWaypoints();
@@ -33,11 +37,30 @@ public class Enemy : BaseUnit
 
         print(_destination);
     }
+    private void Update()
+    {
+        DetectPlayer();
+    }
     private void FixedUpdate()
     {
         MoveCharacter();
     }
 
+    void DetectPlayer()
+    {
+        if (_player == null)
+            return;
+
+        float playerDistance = (transform.position - _player.transform.position).magnitude;
+
+        if (playerDistance < aggroRadius)
+        {
+            detectedPlayer = true;
+            _destination = _player.transform.position;
+        }
+        else
+            detectedPlayer = false;
+    }
     void FindAllWaypoints()
     {
         GameObject[] waypoints = FindObjectsOfType<GameObject>();
@@ -45,9 +68,7 @@ public class Enemy : BaseUnit
         for (int i = 0; i < waypoints.Length; i++)
         {
             if (waypoints[i].layer == 8)
-            {
                 allWaypoints.Add(waypoints[i]);
-            }
         }
     }
     void SetCurrentWaypoint()
@@ -59,9 +80,7 @@ public class Enemy : BaseUnit
             float distance = (allWaypoints[i].transform.position - transform.position).magnitude;
 
             if (distance < waypointDetectionRadius)
-            {
                 moveableWaypoints.Add(allWaypoints[i]);
-            }
         }
 
         _destination = moveableWaypoints[(int)Random.Range(0, moveableWaypoints.Count)].transform.position;
@@ -74,7 +93,10 @@ public class Enemy : BaseUnit
         if ((_destination - transform.position).magnitude > 0.1f)
             _rb.velocity = moveDirection * Speed;
         else
+        {
             _rb.velocity = Vector3.zero;
+            moveState = MoveState.Standing;
+        }
     }
 
     IEnumerator ChangeMoveState()
@@ -92,8 +114,8 @@ public class Enemy : BaseUnit
             }
             else if (randomNumber >= 0.26f && randomNumber <= 0.50f)
             {
-                _destination = transform.position;
                 moveState = MoveState.Standing;
+                _destination = transform.position;
             }
             else
             {
