@@ -47,8 +47,6 @@ public class InputManager : MonoBehaviour
         else
             input = Vector3.zero;
 
-        print(input);
-
         return input;
     }
 
