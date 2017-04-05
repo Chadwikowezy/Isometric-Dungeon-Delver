@@ -6,6 +6,8 @@ public class InputManager : MonoBehaviour
 {
     private BaseUnit _baseUnit;
 
+    private bool _attackInput;
+
     private Vector3 _moveInput;
     private Vector3 _rotationInput;
 
@@ -15,11 +17,20 @@ public class InputManager : MonoBehaviour
     }
     private void Update()
     {
+        _attackInput = DetectAttackInput();
         _moveInput = DetectMoveInput();
         _rotationInput = DetectRotationInput();
     }
 
-    public Vector3 DetectMoveInput()
+    bool DetectAttackInput()
+    {
+        bool input;
+
+        input = Input.GetButton("Fire1");
+
+        return input;
+    }
+    Vector3 DetectMoveInput()
     {
         Vector3 input;
 
@@ -33,7 +44,7 @@ public class InputManager : MonoBehaviour
 
         return input;
     }
-    public Vector3 DetectRotationInput()
+    Vector3 DetectRotationInput()
     {
         Vector3 input;
 
@@ -51,6 +62,10 @@ public class InputManager : MonoBehaviour
     }
 
     //Properties
+    public bool AttackInput
+    {
+        get { return _attackInput; }
+    }
     public Vector3 MoveInput
     {
         get { return _moveInput; }

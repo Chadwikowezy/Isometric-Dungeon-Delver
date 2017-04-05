@@ -26,7 +26,6 @@ public enum MonsterType
 
 public enum MoveState
 {
-    Idle,
     Standing,
     Running,
     KnockedBack,

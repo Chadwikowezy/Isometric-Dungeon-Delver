@@ -28,9 +28,7 @@ public class PlayerMotor : MonoBehaviour
             return;
 
         if (_rb.velocity.magnitude < _stats.MaxSpeed)
-        {
             _rb.AddForce(_inputManager.MoveInput * _stats.Speed);
-        }
     }
     void RotatePlayer()
     {

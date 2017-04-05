@@ -103,12 +103,7 @@ public class Enemy : BaseUnit
         {
             float randomNumber = Random.Range(0f, 1f);
 
-            if (randomNumber <= 0.25f)
-            {
-                moveState = MoveState.Idle;
-                _destination = transform.position;
-            }
-            else if (randomNumber >= 0.26f && randomNumber <= 0.50f)
+            if (randomNumber <= 0.50f)
             {
                 moveState = MoveState.Standing;
                 _destination = transform.position;

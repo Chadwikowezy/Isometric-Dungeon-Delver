@@ -9,6 +9,9 @@ public class BaseUnit : MonoBehaviour
     public MoveState moveState;
 
     [SerializeField]
+    private bool _isAttacking;
+
+    [SerializeField]
     private int _health,
                 _maxHealth,
                 _attack,
@@ -19,6 +22,11 @@ public class BaseUnit : MonoBehaviour
                   _maxSpeed;
 
     //Properties
+    public bool IsAttacking
+    {
+        get { return _isAttacking; }
+        set { _isAttacking = value; }
+    }
     public int Health
     {
         get { return _health; }
