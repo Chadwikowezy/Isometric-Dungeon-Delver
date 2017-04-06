@@ -29,7 +29,10 @@ public class InputManager : MonoBehaviour
     {
         bool input;
 
-        input = Input.GetButton("Fire1");
+        if (Input.GetAxis("Basic Attack") > 0.2f)
+            input = true;
+        else
+            input = false;
 
         return input;
     }
