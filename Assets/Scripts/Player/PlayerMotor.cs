@@ -10,6 +10,11 @@ public class PlayerMotor : MonoBehaviour
     private InputManager _inputManager;
     private BaseUnit _stats;
 
+    [SerializeField]
+    private float _rotateSpeed;
+
+    private Quaternion lookRotation;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -32,13 +37,40 @@ public class PlayerMotor : MonoBehaviour
     }
     void RotatePlayer()
     {
-        Vector3 lookDirection = _inputManager.RotationInput - transform.position;
-        Quaternion lookRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
+        Quaternion newRotation;
 
-        lookDirection.y = transform.position.y;
-        lookRotation.x = 0;
-        lookRotation.z = 0;
+        if (_inputManager.Joysticks.Length > 0)
+            newRotation = ControllerRotation();
+        else
+            newRotation = MouseRotation();
 
-        transform.rotation = lookRotation;
+        transform.rotation = newRotation;
+    }
+
+    Quaternion ControllerRotation()
+    {
+        Vector3 rotationInput = _inputManager.RotationInput;
+
+        if (rotationInput.magnitude < 0.1f)
+            return _rb.rotation;
+
+        float targetAngle = Mathf.Atan2(rotationInput.x, rotationInput.z) * Mathf.Rad2Deg;
+        float newAngle = Mathf.Lerp(_rb.rotation.eulerAngles.y, targetAngle, _rotateSpeed);
+        Quaternion newRotation;
+
+        newRotation = Quaternion.Lerp(_rb.rotation, Quaternion.Euler(new Vector3(0, targetAngle, 0)), _rotateSpeed);
+
+        return newRotation;
+    }
+    Quaternion MouseRotation()
+    {
+        Quaternion newRotation;
+
+        Vector3 rotationInput = _inputManager.RotationInput;
+        Vector3 lookDirection = rotationInput - _rb.position;
+
+        newRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
+
+        return newRotation;
     }
 }

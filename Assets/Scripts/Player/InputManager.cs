@@ -11,9 +11,12 @@ public class InputManager : MonoBehaviour
     private Vector3 _moveInput;
     private Vector3 _rotationInput;
 
+    private string[] _joysticks;
+
     private void Start()
     {
         _baseUnit = GetComponent<BaseUnit>();
+        _joysticks = Input.GetJoystickNames();
     }
     private void Update()
     {
@@ -37,31 +40,39 @@ public class InputManager : MonoBehaviour
         input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         input = input.normalized;
 
-        if (input == Vector3.zero)
-            _baseUnit.moveState = MoveState.Standing;
-        else
-            _baseUnit.moveState = MoveState.Running;
-
         return input;
     }
     Vector3 DetectRotationInput()
     {
         Vector3 input;
 
-        RaycastHit hitInfo;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (_joysticks == null)
+        {
+            RaycastHit hitInfo;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        Physics.Raycast(ray, out hitInfo, 20);
+            Physics.Raycast(ray, out hitInfo, 20);
 
-        if (_baseUnit.moveState != MoveState.KnockedBack && _baseUnit.moveState != MoveState.Stuned)
             input = hitInfo.point;
-        else
-            input = Vector3.zero;
 
-        return input;
+            return input;
+        }
+        else
+        {
+            input = new Vector3(Input.GetAxis("Right Horizontal"), 0, Input.GetAxis("Right Vertical"));
+
+            //for (int i = 0; i < Input.GetJoystickNames().Length; i++)
+            //    Debug.Log(Input.GetJoystickNames()[i]);
+
+            return input;
+        }
     }
 
     //Properties
+    public string[] Joysticks
+    {
+        get { return _joysticks; }
+    }
     public bool AttackInput
     {
         get { return _attackInput; }
