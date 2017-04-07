@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    private BaseUnit _baseUnit;
-
     private bool _attackInput;
 
     private Vector3 _moveInput;
@@ -15,7 +13,6 @@ public class InputManager : MonoBehaviour
 
     private void Start()
     {
-        _baseUnit = GetComponent<BaseUnit>();
         _joysticks = Input.GetJoystickNames();
     }
     private void Update()
@@ -63,9 +60,6 @@ public class InputManager : MonoBehaviour
         else
         {
             input = new Vector3(Input.GetAxis("Right Horizontal"), 0, Input.GetAxis("Right Vertical"));
-
-            //for (int i = 0; i < Input.GetJoystickNames().Length; i++)
-            //    Debug.Log(Input.GetJoystickNames()[i]);
 
             return input;
         }

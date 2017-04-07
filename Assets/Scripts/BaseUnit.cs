@@ -19,13 +19,18 @@ public class BaseUnit : MonoBehaviour
                   _maxSpeed,
                   _basicAttackRange,
                   _basicAttackKnockback,
-                  _basicAttackCooldown;
+                  _basicAttackCooldown,
+                  _basicAttackStunTime;
 
     //Properties
     public int Health
     {
         get { return _health; }
-        set { _health = value; }
+        set
+        {
+            _health = value;
+            _health = Mathf.Clamp(_health, 0, _maxHealth);
+        }
     }
     public int MaxHealth
     {
@@ -66,5 +71,17 @@ public class BaseUnit : MonoBehaviour
     {
         get { return _basicAttackCooldown; }
         set { _basicAttackCooldown = value; }
+    }
+    public float BasicAttackStunTime
+    {
+        get { return _basicAttackStunTime; }
+        set { _basicAttackStunTime = value; }
+    }
+
+   public IEnumerator ResetMoveState(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        moveState = MoveState.Standing;
     }
 }

@@ -83,6 +83,9 @@ public class Enemy : BaseUnit
     }
     void MoveCharacter()
     {
+        if (moveState == MoveState.KnockedBack || moveState == MoveState.Stuned)
+            return;
+
         Vector3 moveDirection = (_destination - transform.position).normalized;
         moveDirection.y = transform.position.y;
 
