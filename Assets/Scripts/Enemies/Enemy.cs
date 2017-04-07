@@ -22,7 +22,7 @@ public class Enemy : BaseUnit
     private Rigidbody _rb;
 
     private List<GameObject> allWaypoints = new List<GameObject>();
-
+    
     private void Start()
     {
         if (FindObjectOfType<Player>())

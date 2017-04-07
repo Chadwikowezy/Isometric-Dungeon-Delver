@@ -23,7 +23,7 @@ public class BasicAttack : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hitInfo;
 
-        if (Physics.Raycast(ray, out hitInfo, 1f))
+        if (Physics.Raycast(ray, out hitInfo, _baseUnit.BasicAttackRange))
         {
             BaseUnit otherCharacter = hitInfo.collider.gameObject.GetComponent<BaseUnit>();
             int damage = _baseUnit.Attack - otherCharacter.Defense;
