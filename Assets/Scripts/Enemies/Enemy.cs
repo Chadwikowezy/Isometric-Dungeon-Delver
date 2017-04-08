@@ -41,6 +41,11 @@ public class Enemy : BaseUnit
     {
         MoveCharacter();
     }
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.layer == 9)
+            AttackPlayer(other.gameObject.GetComponent<BaseUnit>());
+    }
 
     void DetectPlayer()
     {
@@ -96,6 +101,17 @@ public class Enemy : BaseUnit
             _rb.velocity = Vector3.zero;
             moveState = MoveState.Standing;
         }
+    }
+    void AttackPlayer(BaseUnit player)
+    {
+        int damage = Attack - player.Defense;
+
+        damage = Mathf.Clamp(damage, 0, Attack);
+        player.Health -= damage;
+        player.moveState = MoveState.KnockedBack;
+
+        StartCoroutine(player.ResetMoveState(BasicAttackStunTime));
+        player.GetComponent<Rigidbody>().AddForce(_rb.velocity.normalized * BasicAttackKnockback);
     }
 
     IEnumerator ChangeMoveState()
