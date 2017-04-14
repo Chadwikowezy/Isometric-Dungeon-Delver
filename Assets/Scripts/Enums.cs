@@ -34,12 +34,29 @@ public enum MoveState
 
 public enum ItemType
 {
+    Equipable,
+    Consumable,
+    Reusable
+}
+
+public enum ItemRarity
+{
+    Common,
+    Rare,
+    UltraRare,
+    Epic
+}
+
+public enum EquipableType
+{
     Helmet,
     Pauldrons,
     Bracers,
     ChestPiece,
     Leggings,
     Boots,
+    Amulet,
+    LeftRing,
+    RightRing,
     Weapon,
-    Consumable
 }

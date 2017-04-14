@@ -55,7 +55,6 @@ public class PlayerMotor : MonoBehaviour
             return _rb.rotation;
 
         float targetAngle = Mathf.Atan2(rotationInput.x, rotationInput.z) * Mathf.Rad2Deg;
-        float newAngle = Mathf.Lerp(_rb.rotation.eulerAngles.y, targetAngle, _rotateSpeed);
         Quaternion newRotation;
 
         newRotation = Quaternion.Lerp(_rb.rotation, Quaternion.Euler(new Vector3(0, targetAngle, 0)), _rotateSpeed);
