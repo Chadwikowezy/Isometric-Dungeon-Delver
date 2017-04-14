@@ -101,6 +101,15 @@ public class Enemy : BaseUnit
             _rb.velocity = Vector3.zero;
             moveState = MoveState.Standing;
         }
+
+        RotateCharacter();
+    }
+    void RotateCharacter()
+    {
+        Quaternion targetRotation = Quaternion.LookRotation(_rb.velocity, Vector3.up);
+        Quaternion newRotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
+
+        _rb.rotation = newRotation;
     }
     void AttackPlayer(BaseUnit player)
     {
@@ -111,7 +120,7 @@ public class Enemy : BaseUnit
         player.moveState = MoveState.KnockedBack;
 
         StartCoroutine(player.ResetMoveState(BasicAttackStunTime));
-        player.GetComponent<Rigidbody>().AddForce(_rb.velocity.normalized * BasicAttackKnockback);
+        player.GetComponent<Rigidbody>().AddForce(_rb.transform.forward * BasicAttackKnockback);
     }
 
     IEnumerator ChangeMoveState()
