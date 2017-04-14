@@ -6,7 +6,7 @@ public class Enemy : BaseUnit
 {
     public MonsterType monsterType;
 
-    public Item itemDrop;
+    public BaseItem itemDrop;
 
     public bool detectedPlayer;
 
