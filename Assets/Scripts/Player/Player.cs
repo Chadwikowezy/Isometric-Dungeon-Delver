@@ -24,6 +24,7 @@ public class Player : BaseUnit
     private void Update()
     {
         if (_inputManager.AttackInput)
-            //_basicAttack.Attack();
+            _basicAttack.Attack();
+        //Source control test
     }
 }
