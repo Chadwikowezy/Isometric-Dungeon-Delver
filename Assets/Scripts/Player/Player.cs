@@ -25,6 +25,5 @@ public class Player : BaseUnit
     {
         if (_inputManager.AttackInput)
             _basicAttack.Attack();
-        //Source control test
     }
 }
