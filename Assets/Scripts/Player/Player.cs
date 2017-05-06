@@ -24,7 +24,6 @@ public class Player : BaseUnit
     private void Update()
     {
         if (_inputManager.AttackInput)
-            _basicAttack.Attack();
-        //Blah Blah Blah
+            //_basicAttack.Attack();
     }
 }
