@@ -7,9 +7,11 @@ public class BaseItem : MonoBehaviour
     //Variables
     [SerializeField]
     private ItemType _itemType;
+    [SerializeField]
     private ItemRarity _itemRarity;
 
     [SerializeField]
+    [TextArea]
     private string _itemName,
                    _itemDescription;
 
