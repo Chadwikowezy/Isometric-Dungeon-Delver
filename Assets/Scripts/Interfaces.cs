@@ -24,7 +24,7 @@ public interface IEquipable
 }
 
 public interface IConsumable
-{ void Consume(); }
+{ void Consume(BaseUnit character); }
 
 public interface Reuseable
-{ void Use(); }
+{ void Use(BaseUnit character); }
